@@ -29,7 +29,7 @@ export class ApirepositoryService {
 
   async getTransactionByIdApi(id: string): Promise<String> {
     const response = await firstValueFrom(
-      this.httpService.get(process.env.URL_CONSUMO_BASE + Routes.get_transaction, {}),
+      this.httpService.get(`${process.env.URL_CONSUMO_BASE}${Routes.get_transaction}${id}`, {}),
     )
     return response.data.data.status;
   }

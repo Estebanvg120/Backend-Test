@@ -7,6 +7,7 @@ import { DeliveryrepositoryService } from 'src/domain/respository/deliveryreposi
 import { delivery } from 'src/application/dtos/delivery.dto';
 import { ApirepositoryService } from 'src/domain/external/apirepository/apirepository.service';
 import { Strings } from 'src/domain/external/apirepository/routes/Strings';
+import { encrypt } from 'src/application/resources/Functions';
 
 @Injectable()
 export class CreatetransactionService {
@@ -38,10 +39,7 @@ export class CreatetransactionService {
         }
       }
       const integrity = `${process.env.PREFIJO}${dataTransactionResponse.id}${dataTransaction.dataTransaction.amount}${Strings.currency}${process.env.INTEGRITY}`
-      const encondedText = new TextEncoder().encode(integrity);
-      const hashBuffer = await crypto.subtle.digest("SHA-256", encondedText);
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      const hashHex = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+      const hash = await encrypt(integrity);
       const dataTransactionApi = {
         amount_in_cents: dataTransaction.dataTransaction.amount,
         currency: Strings.currency,
@@ -54,17 +52,17 @@ export class CreatetransactionService {
         },
         acceptance_token: token,
         payment_method_type: Strings.payment_method_type,
-        signature: hashHex
+        signature: hash
       }
-
-      const externalIdTransaction = await this._apiServices.createTransaction(dataTransactionApi)
+      const externalIdTransaction = await this._apiServices.createTransaction(dataTransactionApi);
+      dataTransactionResponse.external_id = externalIdTransaction;
+      await this._transactionRepositoryService.createTransactionRepository(dataTransactionResponse);
 
       return {
         status: HttpStatus.OK,
         message: 'Transaction created',
         data: {
           dataTransaction: dataTransactionResponse,
-          dataCustomer: dataCustomerResponse.data,
           idExternal: externalIdTransaction
         }
       }

@@ -29,7 +29,7 @@ export class Transaction {
   })
   product: Product;
 
-  @Column({ default: 0 })
+  @Column()
   quantityProduct: number;
 
   @CreateDateColumn({ type: 'timestamptz' })

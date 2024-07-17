@@ -7,7 +7,7 @@ export class TransactionbyidService {
   constructor(
     private readonly _transactionRepositoryService: TransactionrepositoryService,
   ) { }
-  async transactionById(id: number): Promise<responseCreateTransaction> {
+  async transactionById(id: string): Promise<responseCreateTransaction> {
     try {
       const response = await this._transactionRepositoryService.transactionByIdRepository(id);
       if (!response) {

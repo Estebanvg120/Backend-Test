@@ -1,5 +1,5 @@
 import { Body, Controller, Get, HttpStatus, Param, Post, Put } from '@nestjs/common';
-import { createTransaction, responseCreateTransaction, transaction } from 'src/application/dtos';
+import { createTransaction, responseCreateTransaction, transaction, updatedTransaction } from 'src/application/dtos';
 import { CreatetransactionService } from 'src/application/use-case';
 import { CreatedeliveryService } from 'src/application/use-case/createdelivery/createdelivery.service';
 import { CustomerbyidService } from 'src/application/use-case/customerbyid/customerbyid.service';
@@ -22,7 +22,7 @@ export class TransactionsController {
   }
 
   @Get('/transaction/:id')
-  async getTransactionById(@Param('id') id: number) {
+  async getTransactionById(@Param('id') id: string) {
     const dataResponse = await this._transactionbyidUseCase.transactionById(id);
     return {
       status: 200,
@@ -32,8 +32,8 @@ export class TransactionsController {
   }
 
   @Put('/updatedtransaction/:id')
-  async updateTransaction(@Param('id') id: number, @Body('quantityProduct') quantityProduct: number): Promise<responseCreateTransaction> {
-    return await this._updatedTransactionUseCase.updatedTransaction(id, quantityProduct);
+  async updateTransaction(@Body() data: updatedTransaction): Promise<responseCreateTransaction> {
+    return await this._updatedTransactionUseCase.updatedTransaction(data);
 
   }
 }

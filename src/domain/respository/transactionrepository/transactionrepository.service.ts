@@ -15,8 +15,8 @@ export class TransactionrepositoryService {
     return await this.transactionRepository.save(dataTransaction);
   }
 
-  async transactionByIdRepository(id: number): Promise<transaction> {
-    return await this.transactionRepository.findOne({ where: { id }, relations: ['customer', 'product'] })
+  async transactionByIdRepository(id: string): Promise<transaction> {
+    return await this.transactionRepository.findOne({ where: { external_id: id }, relations: ['customer', 'product'] })
   }
 
 }
