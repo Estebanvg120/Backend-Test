@@ -8,13 +8,17 @@ import { delivery } from 'src/application/dtos/delivery.dto';
 import { ApirepositoryService } from 'src/domain/external/apirepository/apirepository.service';
 import { Strings } from 'src/domain/external/apirepository/routes/Strings';
 import { encrypt } from 'src/application/resources/Functions';
+import { ProductbyidService } from '../productbyid/productbyid.service';
+import { CreatedeliveryService } from '../createdelivery/createdelivery.service';
 
 @Injectable()
 export class CreatetransactionService {
   constructor(
     private readonly _transactionRepositoryService: TransactionrepositoryService,
     private readonly _customerByIdUseCase: CustomerbyidService,
-    private readonly _apiServices: ApirepositoryService
+    private readonly _apiServices: ApirepositoryService,
+    private readonly _productByIdUseCase: ProductbyidService,
+    private readonly _createDeliveryUseCase: CreatedeliveryService
   ) { }
   async createTransaction(dataTransaction: createTransaction): Promise<responseCreateTransaction> {
     try {
@@ -26,9 +30,16 @@ export class CreatetransactionService {
           message: 'Customer not found',
         }
       }
+      const dataProduct = await this._productByIdUseCase.getProductById(dataTransaction.idProduct);
+      if (!dataProduct.data) {
+        return {
+          status: HttpStatus.NOT_FOUND,
+          message: 'Product not found',
+        }
+      }
       const dataTrx: transaction = {
         ...dataTransaction.dataTransaction,
-        product: dataTransaction.dataProduct,
+        product: dataProduct.data,
         customer: dataCustomerResponse.data
       }
       const dataTransactionResponse = await this._transactionRepositoryService.createTransactionRepository(dataTrx);
@@ -36,6 +47,18 @@ export class CreatetransactionService {
         return {
           status: HttpStatus.BAD_REQUEST,
           message: 'The transaction could not be created',
+        }
+      }
+
+      const finalDataDelivery: delivery = {
+        ...dataTransaction.dataDelivery,
+        transaction: dataTransactionResponse
+      }
+      const deliveryRepsonse = await this._createDeliveryUseCase.createDelivery(finalDataDelivery);
+      if (!deliveryRepsonse.data) {
+        return {
+          status: HttpStatus.BAD_REQUEST,
+          message: 'Delivery could not be created',
         }
       }
       const integrity = `${process.env.PREFIJO}${dataTransactionResponse.id}${dataTransaction.dataTransaction.amount}${Strings.currency}${process.env.INTEGRITY}`
@@ -55,7 +78,11 @@ export class CreatetransactionService {
         signature: hash
       }
       const externalIdTransaction = await this._apiServices.createTransaction(dataTransactionApi);
-      dataTransactionResponse.external_id = externalIdTransaction;
+      if (externalIdTransaction) {
+        dataTransactionResponse.external_id = externalIdTransaction;
+      } else {
+        dataTransactionResponse.state = Strings.error
+      }
       await this._transactionRepositoryService.createTransactionRepository(dataTransactionResponse);
 
       return {
@@ -63,7 +90,8 @@ export class CreatetransactionService {
         message: 'Transaction created',
         data: {
           dataTransaction: dataTransactionResponse,
-          idExternal: externalIdTransaction
+          idExternal: externalIdTransaction,
+          dataDelivery: deliveryRepsonse.data
         }
       }
     } catch (error) {

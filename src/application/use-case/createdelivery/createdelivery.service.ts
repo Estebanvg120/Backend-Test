@@ -1,7 +1,6 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import { transaction } from 'src/application/dtos';
 import { delivery, deliveryResponse } from 'src/application/dtos/delivery.dto';
-import { DeliveryrepositoryService } from 'src/domain/respository/deliveryrepository/deliveryrepository.service';
+import { DeliveryrepositoryService } from '../../../domain/respository/deliveryrepository/deliveryrepository.service';
 
 @Injectable()
 export class CreatedeliveryService {
@@ -9,13 +8,9 @@ export class CreatedeliveryService {
     private readonly _deliveryRepositoryService: DeliveryrepositoryService,
   ) { }
 
-  async createDelivery(dataDelivery: delivery, dataTransaction: transaction): Promise<deliveryResponse> {
+  async createDelivery(dataDelivery: delivery): Promise<deliveryResponse> {
     try {
-      const finalData = {
-        ...dataDelivery,
-        transaction: dataTransaction
-      }
-      const response = await this._deliveryRepositoryService.createDeliveryRepository(finalData);
+      const response = await this._deliveryRepositoryService.createDeliveryRepository(dataDelivery);
       if (!response) {
         return {
           status: HttpStatus.BAD_REQUEST,

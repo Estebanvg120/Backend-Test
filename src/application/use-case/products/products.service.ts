@@ -1,5 +1,5 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import { paginationDto, productsResponse } from 'src/application/dtos';
+import { allProductsResponse, paginationDto, productsResponse } from 'src/application/dtos';
 import { ProductsrepositoryService } from 'src/domain/respository/productsrepository/productsrepository.service';
 
 @Injectable()
@@ -7,7 +7,7 @@ export class ProductsService {
   constructor(
     private readonly _productsrepositoryService: ProductsrepositoryService,
   ) { }
-  async allProducts(pagination: paginationDto): Promise<productsResponse> {
+  async allProducts(pagination: paginationDto): Promise<allProductsResponse> {
     try {
       const response = await this._productsrepositoryService.allProductsRepository(pagination);
       if (response.length === 0) {

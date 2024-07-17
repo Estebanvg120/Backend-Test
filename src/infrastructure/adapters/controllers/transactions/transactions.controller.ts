@@ -1,8 +1,6 @@
-import { Body, Controller, Get, HttpStatus, Param, Post, Put } from '@nestjs/common';
-import { createTransaction, responseCreateTransaction, transaction, updatedTransaction } from 'src/application/dtos';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { createTransaction, responseCreateTransaction, updatedTransaction } from 'src/application/dtos';
 import { CreatetransactionService } from 'src/application/use-case';
-import { CreatedeliveryService } from 'src/application/use-case/createdelivery/createdelivery.service';
-import { CustomerbyidService } from 'src/application/use-case/customerbyid/customerbyid.service';
 import { TransactionbyidService } from 'src/application/use-case/transactionbyid/transactionbyid.service';
 import { UpdatedtransactionService } from 'src/application/use-case/updatedtransaction/updatedtransaction.service';
 
@@ -11,8 +9,6 @@ export class TransactionsController {
   constructor(
     private readonly _createTransactionUseCase: CreatetransactionService,
     private readonly _transactionbyidUseCase: TransactionbyidService,
-    private readonly _createDeliveryUseCase: CreatedeliveryService,
-    private readonly _customerByIdUseCase: CustomerbyidService,
     private readonly _updatedTransactionUseCase: UpdatedtransactionService
 
   ) { }
@@ -23,15 +19,10 @@ export class TransactionsController {
 
   @Get('/transaction/:id')
   async getTransactionById(@Param('id') id: string) {
-    const dataResponse = await this._transactionbyidUseCase.transactionById(id);
-    return {
-      status: 200,
-      message: 'success',
-      data: dataResponse.data.dataTransaction,
-    }
+    return await this._transactionbyidUseCase.transactionById(id);
   }
 
-  @Put('/updatedtransaction/:id')
+  @Put('/updatedtransaction')
   async updateTransaction(@Body() data: updatedTransaction): Promise<responseCreateTransaction> {
     return await this._updatedTransactionUseCase.updatedTransaction(data);
 

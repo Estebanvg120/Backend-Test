@@ -5,13 +5,15 @@ import { UpdatedstockService } from '../updatedstock/updatedstock.service';
 import { ProductsrepositoryService } from 'src/domain/respository/productsrepository/productsrepository.service';
 import { ApirepositoryService } from 'src/domain/external/apirepository/apirepository.service';
 import { Strings } from 'src/domain/external/apirepository/routes/Strings';
+import { CreatedeliveryService } from '../createdelivery/createdelivery.service';
 
 @Injectable()
 export class UpdatedtransactionService {
   constructor(
     private readonly _transactionRepositoryService: TransactionrepositoryService,
     private readonly _productsRepositoryService: ProductsrepositoryService,
-    private readonly _apiRepositoryService: ApirepositoryService
+    private readonly _apiRepositoryService: ApirepositoryService,
+    private readonly _createDeliveryUseCase: CreatedeliveryService
   ) { }
 
   async updatedTransaction(data: updatedTransaction): Promise<responseCreateTransaction> {
