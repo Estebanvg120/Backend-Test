@@ -101,7 +101,7 @@ Este proyecto de backend implementa la lógica necesaria para un e-commerce, inc
 
    ```bash
    git clone https://github.com/Estebanvg120/Backend-Test.git
-   cd tu-proyecto
+   cd backend-test
    ```
 
 2. Instala las dependencias:
