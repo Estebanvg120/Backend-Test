@@ -3,7 +3,6 @@ import { Injectable } from '@nestjs/common';
 import { firstValueFrom } from 'rxjs';
 import { Routes } from './routes/Routes';
 import { createTransactionApi } from 'src/application/dtos';
-import { Strings } from './routes/Strings';
 
 @Injectable()
 export class ApirepositoryService {

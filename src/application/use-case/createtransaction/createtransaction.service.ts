@@ -2,8 +2,6 @@ import { HttpStatus, Injectable } from '@nestjs/common';
 import { createTransaction, responseCreateTransaction, transaction } from 'src/application/dtos';
 import { TransactionrepositoryService } from 'src/domain/respository/transactionrepository/transactionrepository.service';
 import { CustomerbyidService } from '../customerbyid/customerbyid.service';
-import { CustomerrepositoryService } from 'src/domain/respository/customerrepository/customerrepository.service';
-import { DeliveryrepositoryService } from 'src/domain/respository/deliveryrepository/deliveryrepository.service';
 import { delivery } from 'src/application/dtos/delivery.dto';
 import { ApirepositoryService } from 'src/domain/external/apirepository/apirepository.service';
 import { Strings } from 'src/domain/external/apirepository/routes/Strings';
