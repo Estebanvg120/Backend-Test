@@ -5,6 +5,6 @@ export const Strings = {
   refused: 'REFUSED',
   approved: 'APPROVED',
   error: 'ERROR',
-  decline: 'DECLINE',
+  decline: 'DECLINED',
   pending: 'PENDING',
 }
