@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { createTransaction, responseCreateTransaction, updatedTransaction } from 'src/application/dtos';
 import { CreatetransactionService } from 'src/application/use-case';
 import { TransactionbyidService } from 'src/application/use-case/transactionbyid/transactionbyid.service';
@@ -22,7 +22,7 @@ export class TransactionsController {
     return await this._transactionbyidUseCase.transactionById(id);
   }
 
-  @Put('/updatedtransaction')
+  @Post('/updatedtransaction')
   async updateTransaction(@Body() data: updatedTransaction): Promise<responseCreateTransaction> {
     return await this._updatedTransactionUseCase.updatedTransaction(data);
 
