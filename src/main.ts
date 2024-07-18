@@ -7,7 +7,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Test')
-    .setDescription('The test API description')
+    .setDescription("This is the API documentation for e-commerce, where you will find endpoints for transactions and products.")
     .setVersion('1.0')
     .addTag('E-commerce')
     .build();

@@ -1,9 +1,11 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { createTransaction, responseCreateTransaction, updatedTransaction } from 'src/application/dtos';
 import { CreatetransactionService } from 'src/application/use-case';
 import { TransactionbyidService } from 'src/application/use-case/transactionbyid/transactionbyid.service';
 import { UpdatedtransactionService } from 'src/application/use-case/updatedtransaction/updatedtransaction.service';
 
+@ApiTags("Transactions")
 @Controller('transactions')
 export class TransactionsController {
   constructor(

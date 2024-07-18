@@ -3,7 +3,7 @@ import { ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { allProductsResponse, paginationDto, productsResponse } from 'src/application/dtos/products.dto';
 import { ProductbyidService, ProductsService } from 'src/application/use-case';
 
-
+@ApiTags("Products")
 @Controller('products')
 export class ProductsController {
   constructor(

@@ -71,3 +71,87 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+Claro, aquí te dejo un ejemplo de cómo podría ser un archivo `README.md` en formato Markdown para un proyecto de backend que implementa la lógica de un e-commerce con los requisitos mencionados:
+
+---
+
+# Backend para E-commerce
+
+Este proyecto de backend implementa la lógica necesaria para un e-commerce, incluyendo endpoints para consultar productos, crear entregas, manejar transacciones y conectar con una pasarela de pagos. A continuación se detallan los principales componentes y funcionalidades del proyecto.
+
+## Funcionalidades
+
+- Consultar varios productos.
+- Consultar un producto por su ID.
+- Crear entregas.
+- Crear transacciones.
+- Consumir un webhook de la pasarela de pagos para actualizar el estado de una transacción.
+- Conectarse a la API de una pasarela de pagos para crear y consultar transacciones por su ID.
+
+## Tecnologías Utilizadas
+
+- Nest.js
+- PostgreSql (o base de datos de tu elección)
+- Integración con pasarela de pagos (ejemplo: Stripe, PayPal)
+
+## Instalación
+
+1. Clona el repositorio:
+
+   ```bash
+   git clone https://github.com/Estebanvg120/Backend-Test.git
+   cd tu-proyecto
+   ```
+
+2. Instala las dependencias:
+
+   ```bash
+   npm install
+   ```
+
+3. Configura las variables de entorno necesarias (ver sección siguiente).
+
+## Configuración de Variables de Entorno
+
+El proyecto utiliza variables de entorno para configurar las credenciales y otros datos sensibles. Crea un archivo `.env` en la raíz del proyecto y define las siguientes variables:
+
+```
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_USER=user
+POSTGRES_PASSWORD=password
+POSTGRES_DATABASE=namedatabase
+PORT=3000
+MODE=DEV
+RUN_MIGRATIONS=true
+PUBLIC_KEY = keypublic
+PRIVATE_KEY = keypriv
+URL_CONSUMO_BASE =https://pasareladepagos.com/v1/
+PREFIJO=01test-v1-
+INTEGRITY=keyintegrity
+```
+
+Asegúrate de reemplazar `your_stripe_secret_key` y `your_paypal_client_id` con las claves y tokens reales proporcionados por la pasarela de pagos correspondiente.
+
+## Uso
+
+Para iniciar el servidor de desarrollo, ejecuta el siguiente comando:
+
+```bash
+npm start
+```
+
+Esto iniciará el servidor en el puerto especificado en tus variables de entorno (`PORT`).
+
+## Endpoints
+Para encontrar la documentación con cada endpoint, consultar la siguiente ruta
+```bash
+   http://ec2-18-208-169-227.compute-1.amazonaws.com:3000/api
+   ```
+
+## Contribuciones
+
+Si deseas contribuir a este proyecto, por favor realiza un fork del repositorio y envía tus pull requests. Si encuentras algún problema o tienes sugerencias, abre un issue en el repositorio.
+
+---
