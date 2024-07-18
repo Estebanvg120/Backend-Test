@@ -14,4 +14,9 @@ export class DeliveryrepositoryService {
     const response = await this.deliveryRepository.save(dataDelivery);
     return response;
   }
+
+  async getDeliveryByTransactionRepository(idTransaction: number): Promise<delivery> {
+    const response = await this.deliveryRepository.findOne({ where: { transaction: { id: idTransaction } } });
+    return response;
+  }
 }
