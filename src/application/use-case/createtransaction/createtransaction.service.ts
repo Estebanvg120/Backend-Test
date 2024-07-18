@@ -61,13 +61,14 @@ export class CreatetransactionService {
           message: 'Delivery could not be created',
         }
       }
-      const integrity = `${process.env.PREFIJO}${dataTransactionResponse.id}${dataTransaction.dataTransaction.amount}${Strings.currency}${process.env.INTEGRITY}`
+      const referenceTrx = `${process.env.PREFIJO}${Date.now()}`;
+      const integrity = `${referenceTrx}${dataTransaction.dataTransaction.amount}${Strings.currency}${process.env.INTEGRITY}`
       const hash = await encrypt(integrity);
       const dataTransactionApi = {
         amount_in_cents: dataTransaction.dataTransaction.amount,
         currency: Strings.currency,
         customer_email: dataTransactionResponse.customer.email,
-        reference: `${process.env.PREFIJO}${dataTransactionResponse.id}`,
+        reference: referenceTrx,
         payment_method: {
           type: Strings.payment_method_type,
           installments: dataTransaction.dataTransaction.installments,
@@ -78,10 +79,15 @@ export class CreatetransactionService {
         signature: hash
       }
       const externalIdTransaction = await this._apiServices.createTransaction(dataTransactionApi);
-      if (externalIdTransaction) {
+      if (externalIdTransaction !== "AxiosError") {
         dataTransactionResponse.external_id = externalIdTransaction;
       } else {
         dataTransactionResponse.state = Strings.error
+        await this._transactionRepositoryService.createTransactionRepository(dataTransactionResponse);
+        return {
+          status: HttpStatus.BAD_REQUEST,
+          message: 'Transaction with error',
+        }
       }
       await this._transactionRepositoryService.createTransactionRepository(dataTransactionResponse);
 

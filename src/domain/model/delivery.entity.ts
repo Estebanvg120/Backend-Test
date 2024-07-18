@@ -13,16 +13,16 @@ export class Delivery {
   city: string;
 
   @Column()
-  name: string;
+  nameDelivery: string;
 
   @Column()
-  lastname: string;
+  lastnameDelivery: string;
 
   @Column()
   documentType: string;
 
   @Column()
-  documentNumber: string;
+  document: string;
 
   @Column()
   phone: string;

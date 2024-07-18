@@ -11,7 +11,7 @@ export class Product {
   @Column()
   description: string;
 
-  @Column({ type: 'decimal', precision: 9, scale: 2 })
+  @Column()
   price: number;
 
   @Column()

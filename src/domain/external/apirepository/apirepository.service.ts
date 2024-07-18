@@ -31,7 +31,7 @@ export class ApirepositoryService {
       );
       return response.data.data.id;
     } catch (error) {
-      throw new Error(error);
+      return error.name
 
     }
   }
