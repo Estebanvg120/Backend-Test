@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { paginationDto, product } from 'src/application/dtos';
-import { Product } from 'src/domain/model/product.entity';
+import { Product } from '../../../domain/model/product.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()

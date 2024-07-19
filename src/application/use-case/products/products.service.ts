@@ -1,6 +1,6 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import { allProductsResponse, paginationDto, productsResponse } from 'src/application/dtos';
-import { ProductsrepositoryService } from 'src/domain/respository/productsrepository/productsrepository.service';
+import { allProductsResponse, paginationDto } from 'src/application/dtos';
+import { ProductsrepositoryService } from '../../../domain/respository/productsrepository/productsrepository.service';
 
 @Injectable()
 export class ProductsService {

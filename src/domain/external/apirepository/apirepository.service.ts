@@ -1,7 +1,7 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { firstValueFrom } from 'rxjs';
-import { Routes } from './routes/Routes';
+import { Routes } from '../../../resources/routes/Routes';
 import { createTransactionApi } from 'src/application/dtos';
 
 @Injectable()

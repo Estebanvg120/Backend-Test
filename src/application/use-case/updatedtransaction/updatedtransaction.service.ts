@@ -1,11 +1,11 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import { responseCreateTransaction, transaction, updatedTransaction } from 'src/application/dtos';
-import { TransactionrepositoryService } from 'src/domain/respository/transactionrepository/transactionrepository.service';
-import { UpdatedstockService } from '../updatedstock/updatedstock.service';
-import { ProductsrepositoryService } from 'src/domain/respository/productsrepository/productsrepository.service';
-import { ApirepositoryService } from 'src/domain/external/apirepository/apirepository.service';
-import { Strings } from 'src/domain/external/apirepository/routes/Strings';
-import { CreatedeliveryService } from '../createdelivery/createdelivery.service';
+import { responseCreateTransaction, updatedTransaction } from 'src/application/dtos';
+import { TransactionrepositoryService } from '../../../domain/respository/transactionrepository/transactionrepository.service';
+import { ProductsrepositoryService } from '../../../domain/respository/productsrepository/productsrepository.service';
+import { ApirepositoryService } from '../../../domain/external/apirepository/apirepository.service';
+import { Strings } from '../../../resources/strings/Strings';
+
+
 
 @Injectable()
 export class UpdatedtransactionService {
@@ -13,7 +13,6 @@ export class UpdatedtransactionService {
     private readonly _transactionRepositoryService: TransactionrepositoryService,
     private readonly _productsRepositoryService: ProductsrepositoryService,
     private readonly _apiRepositoryService: ApirepositoryService,
-    private readonly _createDeliveryUseCase: CreatedeliveryService
   ) { }
 
   async updatedTransaction(data: updatedTransaction): Promise<responseCreateTransaction> {

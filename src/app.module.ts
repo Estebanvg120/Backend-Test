@@ -4,7 +4,6 @@ import { AppService } from './app.service';
 import { ProductsController } from './infrastructure/adapters/controllers/products/products.controller';
 import { ProductsService } from './application/use-case/products/products.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CustomerController } from './infrastructure/adapters/controllers/customer/customer.controller';
 import { TransactionsController } from './infrastructure/adapters/controllers/transactions/transactions.controller';
 import { CreatetransactionService, ProductbyidService } from './application/use-case';
 import { TransactionbyidService } from './application/use-case/transactionbyid/transactionbyid.service';
@@ -19,7 +18,6 @@ import { TransactionrepositoryService } from './domain/respository/transactionre
 import { DeliveryrepositoryService } from './domain/respository/deliveryrepository/deliveryrepository.service';
 import { CustomerbyidService } from './application/use-case/customerbyid/customerbyid.service';
 import { CustomerrepositoryService } from './domain/respository/customerrepository/customerrepository.service';
-import { UpdatedstockService } from './application/use-case/updatedstock/updatedstock.service';
 import { UpdatedtransactionService } from './application/use-case/updatedtransaction/updatedtransaction.service';
 import { ApirepositoryService } from './domain/external/apirepository/apirepository.service';
 import { HttpModule } from '@nestjs/axios';
@@ -46,8 +44,8 @@ import { HttpModule } from '@nestjs/axios';
       timeout: 5000,
     }),
   ],
-  controllers: [AppController, ProductsController, CustomerController, TransactionsController],
-  providers: [AppService, ProductsService, CreatetransactionService, ProductbyidService, TransactionbyidService, ProductsrepositoryService, CreatedeliveryService, CreatetransactionService, TransactionrepositoryService, DeliveryrepositoryService, CustomerbyidService, CustomerrepositoryService, UpdatedstockService, UpdatedtransactionService, ApirepositoryService],
+  controllers: [AppController, ProductsController, TransactionsController],
+  providers: [AppService, ProductsService, CreatetransactionService, ProductbyidService, TransactionbyidService, ProductsrepositoryService, CreatedeliveryService, CreatetransactionService, TransactionrepositoryService, DeliveryrepositoryService, CustomerbyidService, CustomerrepositoryService, UpdatedtransactionService, ApirepositoryService],
   exports: [TypeOrmModule]
 })
 export class AppModule { }

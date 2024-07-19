@@ -1,7 +1,7 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
-import { ApiConsumes, ApiTags } from '@nestjs/swagger';
-import { allProductsResponse, paginationDto, productsResponse } from 'src/application/dtos/products.dto';
-import { ProductbyidService, ProductsService } from 'src/application/use-case';
+import { ApiTags } from '@nestjs/swagger';
+import { allProductsResponse, paginationDto, productsResponse } from '../../../../application/dtos/products.dto';
+import { ProductbyidService, ProductsService } from '../../../../application/use-case';
 
 @ApiTags("Products")
 @Controller('products')

@@ -1,7 +1,7 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { responseCreateTransaction } from 'src/application/dtos';
-import { DeliveryrepositoryService } from 'src/domain/respository/deliveryrepository/deliveryrepository.service';
-import { TransactionrepositoryService } from 'src/domain/respository/transactionrepository/transactionrepository.service';
+import { DeliveryrepositoryService } from '../../../domain/respository/deliveryrepository/deliveryrepository.service';
+import { TransactionrepositoryService } from '../../../domain/respository/transactionrepository/transactionrepository.service';
 
 @Injectable()
 export class TransactionbyidService {
